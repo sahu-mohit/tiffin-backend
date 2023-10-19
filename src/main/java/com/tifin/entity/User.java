@@ -1,8 +1,11 @@
 package com.tifin.entity;
 
+import com.tifin.AllConstant.Constant;
+import com.tifin.Utility.DataTypeUtility;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -39,6 +42,15 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "DATE_OF_BIRTH")
-    private String dateOfBirth;
+    @Column(name = "CREATED_DATE")
+    private Date createdDate;
+
+    @PrePersist
+    public void autoSave(){
+        createdDate = DataTypeUtility.getDateTimeofDateTypeByFormat(Constant.SQL_FORMAT_DATE_TIME.getValue(),null);
+    }
+//    @PreUpdate
+//    private void preUpdate(){
+//
+//    }
 }
