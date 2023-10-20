@@ -21,5 +21,5 @@ public class MenuPrice {
     private String itemName;
 
     @Column(name = "PRICE")
-    private String price;
+    private Float price;
 }

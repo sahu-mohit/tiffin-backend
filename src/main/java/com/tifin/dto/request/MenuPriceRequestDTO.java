@@ -1,4 +1,4 @@
-package com.tifin.dto.response;
+package com.tifin.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NormalResponse {
-    private String message;
-    private String code;
-    private String Status;
+public class MenuPriceRequestDTO {
+    private Integer id;
+    private String itemName;
+    private Float price;
 }

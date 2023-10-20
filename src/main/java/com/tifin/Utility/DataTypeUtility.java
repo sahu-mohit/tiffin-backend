@@ -66,10 +66,10 @@ public class DataTypeUtility {
         }
     }
 
-    public static Date getDateTimeofDateTypeByFormat(String dateFormat, Date date){
+    public static Date getDateTimeofDateTypeByFormat(String dateFormat, Date dateType){
         try{
-            if(!stringvlue(date).equals("")){
-                String strDate = new SimpleDateFormat(dateFormat).format(date);
+            if(!stringvlue(dateType).equals("")){
+                String strDate = new SimpleDateFormat(dateFormat).format(dateType);
                 return new SimpleDateFormat(dateFormat).parse(strDate);
             }else{
                 LocalDateTime currentDateTime = LocalDateTime.now();
@@ -96,10 +96,10 @@ public class DataTypeUtility {
         return date;
     }
 
-    public static Date getChangeDateFormat(String dateFormat, String date){
+    public static Date getChangeDateFormat(String dateFormat, String stringDate){
         Date date1 = null;
         try{
-            date1 = new SimpleDateFormat(dateFormat).parse(date);
+            date1 = new SimpleDateFormat(dateFormat).parse(stringDate);
         }catch (ParseException e){
             e.printStackTrace();
         }

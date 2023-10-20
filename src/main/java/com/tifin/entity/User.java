@@ -45,9 +45,13 @@ public class User {
     @Column(name = "CREATED_DATE")
     private Date createdDate;
 
+    @Column(name = "USER_ROLE")
+    private String userRole;
+
     @PrePersist
     public void autoSave(){
         createdDate = DataTypeUtility.getDateTimeofDateTypeByFormat(Constant.SQL_FORMAT_DATE_TIME.getValue(),null);
+        userRole = "customer";
     }
 //    @PreUpdate
 //    private void preUpdate(){

@@ -1,7 +1,10 @@
 package com.tifin.service;
 
-import org.springframework.stereotype.Service;
+import com.tifin.dto.request.UserOrderRequestDTO;
+import com.tifin.entity.UserOrder;
 
-@Service
+
 public interface UserOrderService {
+
+    UserOrder saveOrder(UserOrder Userorder);
 }

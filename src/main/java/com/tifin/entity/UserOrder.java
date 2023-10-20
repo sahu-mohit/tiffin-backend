@@ -1,9 +1,18 @@
 package com.tifin.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "USER_ORDER")
 public class UserOrder {
@@ -42,8 +51,8 @@ public class UserOrder {
     @Column(name = "SALED_CHATNI")
     private Integer saledChatni;
 
-    @Column(name = "AMMOUNT")
-    private Float ammount;
+    @Column(name = "AMOUNT")
+    private Float amount;
 
     @Column(name = "TIFFIN_TYPE")
     private String tiffinType;
@@ -52,10 +61,10 @@ public class UserOrder {
     private Boolean isVeg;
 
     @Column(name = "START_DATE_TIME")
-    private String startDateTime;
+    private Date startDateTime;
 
     @Column(name = "END_DATE_TIME")
-    private String endDateTime;
+    private Date endDateTime;
 
     @Column(name = "DAY")
     private String day;
