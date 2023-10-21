@@ -4,7 +4,11 @@ import com.tifin.dao.MenuPriceDao;
 import com.tifin.entity.MenuPrice;
 import com.tifin.service.MenuPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class MenuPriceServiceImpl implements MenuPriceService {
     @Autowired
     MenuPriceDao menuPriceDao;
@@ -19,5 +23,10 @@ public class MenuPriceServiceImpl implements MenuPriceService {
         }catch (Exception e){
             return null;
         }
+    }
+
+    @Override
+    public List<MenuPrice> getMenuPriceList() {
+        return menuPriceDao.findAll();
     }
 }

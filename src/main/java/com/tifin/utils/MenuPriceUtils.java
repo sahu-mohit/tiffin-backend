@@ -3,11 +3,15 @@ package com.tifin.utils;
 import com.tifin.AllConstant.Constant;
 import com.tifin.Utility.DataTypeUtility;
 import com.tifin.dto.request.MenuPriceRequestDTO;
+import com.tifin.dto.response.MenuPriceResponseDTO;
+import com.tifin.dto.response.MenuResponseDTO;
 import com.tifin.dto.response.NormalResponse;
 import com.tifin.entity.MenuPrice;
 import com.tifin.service.MenuPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MenuPriceUtils {
@@ -45,4 +49,18 @@ public class MenuPriceUtils {
         return normalResponse;
     }
 
+    public MenuPriceResponseDTO getMenuPrice() {
+        MenuPriceResponseDTO menuPriceResponseDTO = new MenuPriceResponseDTO();
+        menuPriceResponseDTO.setMessage("Sorry data not found");
+        menuPriceResponseDTO.setCode(Constant.FAILED_CODE.getValue());
+        menuPriceResponseDTO.setStatus(Constant.FAILED_STATUS.getValue());
+        List<MenuPrice> menuList = menuPriceService.getMenuPriceList();
+        if(menuList.size()>0){
+            menuPriceResponseDTO.setMessage("Manu List");
+            menuPriceResponseDTO.setCode(Constant.SUCCESS_CODE.getValue());
+            menuPriceResponseDTO.setStatus(Constant.SUCCESS_STATUS.getValue());
+            menuPriceResponseDTO.setMenuList(menuList);
+        }
+        return menuPriceResponseDTO;
+    }
 }

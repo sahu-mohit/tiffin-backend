@@ -89,10 +89,7 @@ public class UserUtils {
         if (!DataTypeUtility.isNull(emailId)) {
             if (!DataTypeUtility.isNull(password)) {
                 User user = userService.getUserByEmailId(emailId);
-                if (DataTypeUtility.isNull(user)) {
-                    response.setMessage("Invalid Email ID");
-                    return response;
-                } else {
+                if (!DataTypeUtility.isNull(user)) {
                     if (user.getPassword().equals(DataTypeUtility.getEncryption(password))) {
                         response.setMessage("Welcome " + user.getFullName());
                         response.setCode(Constant.SUCCESS_CODE.getValue());
@@ -102,6 +99,9 @@ public class UserUtils {
                         response.setMessage("Invalid password");
                         return response;
                     }
+                } else {
+                    response.setMessage("Invalid Email ID");
+                    return response;
                 }
             } else {
                 response.setMessage("Password can not be Empty");

@@ -1,11 +1,11 @@
 package com.tifin.controller;
 
-import com.tifin.dto.request.LoginRequestDTO;
-import com.tifin.dto.request.MenuPriceRequestDTO;
-import com.tifin.dto.request.RegistrationRequestDTO;
-import com.tifin.dto.request.UserOrderRequestDTO;
+import com.tifin.dto.request.*;
+import com.tifin.dto.response.MenuPriceResponseDTO;
+import com.tifin.dto.response.MenuResponseDTO;
 import com.tifin.dto.response.NormalResponse;
 import com.tifin.utils.MenuPriceUtils;
+import com.tifin.utils.MenuUtils;
 import com.tifin.utils.UserOrderUtils;
 import com.tifin.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/tiffin")
@@ -26,7 +27,10 @@ public class TiffinRestController {
     private UserOrderUtils userOrderUtils;
 
     @Autowired
-    private MenuPriceUtils MenuPriceUtils;
+    private MenuPriceUtils menuPriceUtils;
+
+    @Autowired
+    private MenuUtils menuUtils;
 
     @RequestMapping(value = "/registration", method = {RequestMethod.GET,RequestMethod.POST})
     public ResponseEntity<NormalResponse> userRegistration(@RequestBody RegistrationRequestDTO registrationRequestDTO){
@@ -38,14 +42,29 @@ public class TiffinRestController {
         return ResponseEntity.ok().body(userUtils.userLogin(loginRequestDTO));
     }
 
-    @RequestMapping(value = "/order", method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/add-order", method = {RequestMethod.GET,RequestMethod.POST})
     public ResponseEntity<NormalResponse> userOrder(@RequestBody UserOrderRequestDTO userOrderRequestDTO){
         return ResponseEntity.ok().body(userOrderUtils.userOrder(userOrderRequestDTO));
     }
 
-    @RequestMapping(value = "/menu-price", method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/add-menu-price", method = {RequestMethod.GET,RequestMethod.POST})
     public ResponseEntity<NormalResponse> menuPrice(@RequestBody MenuPriceRequestDTO menuPriceRequestDTO){
-        return ResponseEntity.ok().body(MenuPriceUtils.setItemPrice(menuPriceRequestDTO));
+        return ResponseEntity.ok().body(menuPriceUtils.setItemPrice(menuPriceRequestDTO));
+    }
+
+    @RequestMapping(value = "/get-menu-price", method = {RequestMethod.GET,RequestMethod.POST})
+    public ResponseEntity<MenuPriceResponseDTO> getMenuPrice(){
+        return ResponseEntity.ok().body(menuPriceUtils.getMenuPrice());
+    }
+
+    @RequestMapping(value = "/add-menu", method = {RequestMethod.GET,RequestMethod.POST})
+    public ResponseEntity<NormalResponse> addMenu(@RequestBody MenuRequestDTO menuRequestDTO){
+        return ResponseEntity.ok().body(menuUtils.addMenu(menuRequestDTO));
+    }
+
+    @RequestMapping(value = "/get-menu", method = {RequestMethod.GET,RequestMethod.POST})
+    public ResponseEntity<MenuResponseDTO> getMenu(){
+        return ResponseEntity.ok().body(menuUtils.getMenu());
     }
 
 }

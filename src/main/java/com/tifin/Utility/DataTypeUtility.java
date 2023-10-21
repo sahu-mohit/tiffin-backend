@@ -1,8 +1,5 @@
 package com.tifin.Utility;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import com.tifin.AllConstant.Constant;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -66,10 +63,10 @@ public class DataTypeUtility {
         }
     }
 
-    public static Date getDateTimeofDateTypeByFormat(String dateFormat, Date dateType){
+    public static Date getDateTimeofDateTypeByFormat(String dateFormat, Date date){
         try{
-            if(!stringvlue(dateType).equals("")){
-                String strDate = new SimpleDateFormat(dateFormat).format(dateType);
+            if(!stringvlue(date).equals("")){
+                String strDate = new SimpleDateFormat(dateFormat).format(date);
                 return new SimpleDateFormat(dateFormat).parse(strDate);
             }else{
                 LocalDateTime currentDateTime = LocalDateTime.now();
@@ -104,6 +101,10 @@ public class DataTypeUtility {
             e.printStackTrace();
         }
         return date1;
+    }
+
+    public static String getDateTimeByFormat(String requiredFormat, String givenFormat, String date){
+        return getDateTimeByFormat(requiredFormat, getChangeDateFormat(givenFormat,date));
     }
 
 
