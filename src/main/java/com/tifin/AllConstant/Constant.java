@@ -10,7 +10,7 @@ public enum Constant {
     SQL_FORMAT_DATE_TIME("yyyy-MM-dd HH:mm:ss"),
     SQL_FORMAT_DATE("yyyy-MM-dd"),
     ERROR("Oops! Something went wrong on our end. Please try again later or contact support."),
-    SUCCESS_STATUS("Succes"),
+    SUCCESS_STATUS("success"),
     SUCCESS_CODE("0"),
     FAILED_CODE("1"),
     TECHNICAL_ERROR("Technical Error Occurred"),

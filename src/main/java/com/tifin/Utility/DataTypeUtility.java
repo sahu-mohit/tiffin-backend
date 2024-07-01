@@ -28,7 +28,7 @@ public class DataTypeUtility {
         }
     }
 
-    public static String stringvlue(Object value) {
+    public static String stringValue(Object value) {
         if(value != null && !(value.equals("") || value.toString().equalsIgnoreCase("undefined") || value.toString().equalsIgnoreCase("null"))) {
             return (value.toString()).trim();
         }else{
@@ -55,7 +55,7 @@ public class DataTypeUtility {
     }
 
     public static String getDateTimeByFormat(String dateFormat, Date date){
-        if(!stringvlue(date).equals("")){
+        if(!stringValue(date).equals("")){
             return new SimpleDateFormat(dateFormat).format(date);
         }else{
             Date d = new Date();
@@ -65,7 +65,7 @@ public class DataTypeUtility {
 
     public static Date getDateTimeofDateTypeByFormat(String dateFormat, Date date){
         try{
-            if(!stringvlue(date).equals("")){
+            if(!stringValue(date).equals("")){
                 String strDate = new SimpleDateFormat(dateFormat).format(date);
                 return new SimpleDateFormat(dateFormat).parse(strDate);
             }else{
@@ -115,5 +115,9 @@ public class DataTypeUtility {
         }else{
             return false;
         }
+    }
+
+    public static Boolean isValid(String string){
+        return !"".equalsIgnoreCase(string) && !"0".equalsIgnoreCase(string) && !"null".equalsIgnoreCase(string);
     }
 }

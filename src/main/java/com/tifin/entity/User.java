@@ -42,11 +42,17 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "FOOD_TYPE")
+    private  String foodType;
+
     @Column(name = "CREATED_DATE")
     private Date createdDate;
 
     @Column(name = "USER_ROLE")
     private String userRole;
+
+    @Column(name = "DATE_OF_BIRTH")
+    private Date datOfBirth;
 
     @PrePersist
     public void autoSave(){

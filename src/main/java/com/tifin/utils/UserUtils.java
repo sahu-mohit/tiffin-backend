@@ -2,11 +2,14 @@ package com.tifin.utils;
 
 import com.tifin.AllConstant.Constant;
 import com.tifin.Utility.DataTypeUtility;
+import com.tifin.common.AesUtil;
 import com.tifin.dto.request.LoginRequestDTO;
+import com.tifin.dto.request.Payload;
 import com.tifin.dto.request.RegistrationRequestDTO;
 import com.tifin.dto.response.NormalResponse;
 import com.tifin.entity.User;
 import com.tifin.service.UserService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,32 +18,38 @@ public class UserUtils {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    AesUtil aesUtil;
 
-    public NormalResponse saveUser(RegistrationRequestDTO registrationRequestDTO) {
+    public NormalResponse saveUser(Payload payload) {
+        String plainText = aesUtil.decode(payload.getPayload());
+        JSONObject object = new JSONObject(plainText);
+
         NormalResponse response = new NormalResponse();
         response.setMessage(Constant.TECHNICAL_ERROR.getValue());
         response.setCode(Constant.FAILED_CODE.getValue());
         response.setStatus(Constant.FAILED_STATUS.getValue());
         try {
-            String firstName = registrationRequestDTO.getFirstName();
-            String lastName = registrationRequestDTO.getLastName();
-            String address = registrationRequestDTO.getAddress();
-            String emailId = registrationRequestDTO.getEmailId();
-            String password = registrationRequestDTO.getPassword();
-            String number = registrationRequestDTO.getNumber();
-            if (DataTypeUtility.isNull(firstName)) {
+            String firstName = object.optString("firstName");
+            String lastName = object.optString("lastName");
+            String address = object.optString("address");
+            String emailId = object.optString("emailId");
+            String password = object.optString("password");
+            String number = object.optString("number");
+            String foodType = object.optString("foodType");
+            if (DataTypeUtility.isNull(DataTypeUtility.isValid(firstName))) {
                 response.setMessage("First name can not be empty");
                 return response;
             }
-            if (DataTypeUtility.isNull(lastName)) {
+            if (DataTypeUtility.isNull(DataTypeUtility.isValid(lastName))) {
                 response.setMessage("Last name can not be empty");
                 return response;
             }
-            if (DataTypeUtility.isNull(address)) {
+            if (DataTypeUtility.isNull(DataTypeUtility.isValid(address))) {
                 response.setMessage("Address can not be empty");
                 return response;
             }
-            if (DataTypeUtility.isNull(emailId)) {
+            if (DataTypeUtility.isNull(DataTypeUtility.isValid(emailId))) {
                 response.setMessage("Email Id can not be empty");
                 return response;
             }
@@ -48,7 +57,7 @@ public class UserUtils {
                 response.setMessage("Password can not be empty");
                 return response;
             }
-            if (DataTypeUtility.isNull(number)) {
+            if (DataTypeUtility.isNull(DataTypeUtility.isValid(number))) {
                 response.setMessage("Number can not be empty");
                 return response;
             }
@@ -59,7 +68,8 @@ public class UserUtils {
             user.setAddress(address);
             user.setEmailId(emailId);
             user.setPassword(DataTypeUtility.getEncryption(password));
-            user.setNumber(registrationRequestDTO.getNumber());
+            user.setNumber(number);
+            user.setFoodType(foodType);
             user = userService.saveUser(user);
 
             if (user == null) {

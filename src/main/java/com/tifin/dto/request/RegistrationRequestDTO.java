@@ -19,6 +19,7 @@ public class RegistrationRequestDTO {
     private String address;
     private String emailId;
     private String password;
+    private String confirmPassword;
     private String createDate;
 
 }
